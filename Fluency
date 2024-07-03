@@ -1,0 +1,29 @@
+import openai
+
+def assess_english_fluency(text):
+    # Set your OpenAI API key
+    openai.api_key = 'your-api-key-here'
+    
+    # Define a prompt for fluency assessment
+    prompt = f"Assess the English fluency of the following text:\n\n{text}\n\nProvide an analysis of grammar, vocabulary, and overall fluency."
+
+    try:
+        # Make a request to the OpenAI API
+        response = openai.Completion.create(
+            engine="text-davinci-003",  # Choose the appropriate model
+            prompt=prompt,
+            max_tokens=150,
+            temperature=0.7
+        )
+        
+        # Extract the response text
+        analysis = response.choices[0].text.strip()
+        return analysis
+    
+    except Exception as e:
+        return f"Error fetching data: {e}"
+
+# Example usage
+text_to_assess = "I am writing a test text to see how fluently I can write in English. This text should help in assessing my grammar, vocabulary, and overall language skills."
+fluency_assessment = assess_english_fluency(text_to_assess)
+print(f"Fluency Assessment:\n{fluency_assessment}")
